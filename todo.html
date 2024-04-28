@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .todo-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .todo-item {
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Todo App</h1>
+  <form id="todo-form">
+    <input type="text" id="todo-input" placeholder="Add a new todo" required>
+    <button type="submit">Add</button>
+  </form>
+  <ul id="todo-list" class="todo-list"></ul>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const todoForm = document.getElementById('todo-form');
+      const todoInput = document.getElementById('todo-input');
+      const todoList = document.getElementById('todo-list');
+
+      // Function to add a new todo
+      function addTodo(todoText) {
+        const todoItem = document.createElement('li');
+        todoItem.textContent = todoText;
+        todoItem.classList.add('todo-item');
+
+        // Toggle todo completion on click
+        todoItem.addEventListener('click', function() {
+          todoItem.classList.toggle('completed');
+        });
+
+        // Remove todo on double click
+        todoItem.addEventListener('dblclick', function() {
+          todoItem.remove();
+        });
+
+        todoList.appendChild(todoItem);
+        todoInput.value = ''; // Clear input field after adding todo
+      }
+
+      // Event listener for form submission
+      todoForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const todoText = todoInput.value.trim();
+        if (todoText !== '') {
+          addTodo(todoText);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
